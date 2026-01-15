@@ -1,2 +1,8 @@
 # FMIR
-FMIR, A FOUNDATION MODEL-BASED IMAGE REGISTRATION FRAMEWORK FOR ROBUST IMAGE REGISTRATION
+**A Foundation Model-Based Framework for Robust Medical Image Registration**  
+*Accepted at ISBI 2026*
+
+## Status
+This repository contains the code for the above-mentioned paper. The implementation is currently being finalized and prepared for public release. We expect to make the full codebase available **no later than March 1, 2026**.
+
+Thank you for your interest.

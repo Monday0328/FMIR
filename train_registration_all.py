@@ -54,8 +54,8 @@ def constancy_rg_loss(Im, If, u):
 
 
 ###########dino
-#backbone = torch.hub.load('/data/data4/hy/dinov3-vitb16-pretrain-lvd1689m','dinov3_vitb16', source='local', weights='model.safetensors')
-pretrained_model_name = "dinov3-vitb16-pretrain-lvd1689m"
+#backbone = torch.hub.load('./weight/dinov3-vitb16-pretrain-lvd1689m','dinov3_vitb16', source='local', weights='model.safetensors')
+pretrained_model_name = "./weight/dinov3-vitb16-pretrain-lvd1689m"
 '''
 config = Dinov3Config.from_pretrained(pretrained_model_name)
 config.image_size = 256  # 

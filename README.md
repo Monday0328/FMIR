@@ -17,8 +17,11 @@ FMIR leverages 2D foundation models (e.g., DINOv3, SAM) pre-trained on large-sca
 ## ✨ Highlights
 
 **Robust Generalization**: Maintains strong performance on out-of-domain images even when trained on a single dataset.
+
 **Plug-and-Play Backbone**: Compatible with various foundation encoders like DINO and SAM without structural changes.
+
 **Channel Regularization (CR)**: A novel strategy that suppresses dataset-specific biases, forcing the model to learn essential structural correlations.
+
 **High Efficiency**: Achieves superior accuracy with significantly less inference time compared to other foundation-based frameworks like uniGradICON.
 
 ---
@@ -26,6 +29,7 @@ FMIR leverages 2D foundation models (e.g., DINOv3, SAM) pre-trained on large-sca
 ## 🛠 Methodology
 
 ![FMIR Architecture](fig/FMIR.png)
+
 Fig 1. The schema of FMIR: (a) Foundation Model-based Encoder and (b) Registration Head.
 
 ### 1. Foundation Model-based Encoder
@@ -35,6 +39,11 @@ This module decomposes 3D volumes into 2D slices to leverage frozen 2D foundatio
 A multi-scale pyramid structure that estimates deformation fields from coarse to fine scales, effectively handling large displacements by progressively reconstructing the field.
 
 ---
+
+## 🛠 Pretrained models
+
+Please download the pretrained weights for [DINOv3](https://github.com/facebookresearch/dinov3?tab=readme-ov-file) and [SAM](https://github.com/facebookresearch/segment-anything)  from their official repositories and place the downloaded files into the ./weights directory.
+
 
 ## 🚀 Usage
 
@@ -68,4 +77,4 @@ If you find this work useful for your research, please cite our paper:
 ```
 
 ## 🛠 Acknowledgment
-We extend our sincere appreciation to [DINOv3](https://github.com/facebookresearch/dinov3?tab=readme-ov-file)) and [SAM](https://github.com/facebookresearch/segment-anything) for their important contributions. Portions of the code in this repository are adapted from these projects.
+We extend our sincere appreciation to [DINOv3](https://github.com/facebookresearch/dinov3?tab=readme-ov-file) and [SAM](https://github.com/facebookresearch/segment-anything) for their important contributions. Portions of the code in this repository are adapted from these projects.

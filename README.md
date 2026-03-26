@@ -8,7 +8,7 @@
 [![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![arXiv 2601.17529](https://img.shields.io/badge/arXiv-2601.17529-b31b1b.svg)](https://arxiv.org/abs/2601.17529v2)
 
-]This repository hosts the official PyTorch implementation of **"FMIR: A Foundation Model-based Image Registration Framework for Robust Image Registration"**.
+This repository hosts the official PyTorch implementation of **"FMIR: A Foundation Model-based Image Registration Framework for Robust Image Registration"**.
 
 FMIR leverages 2D foundation models (e.g., DINOv3, SAM) pre-trained on large-scale natural images to achieve state-of-the-art (SOTA) in-domain performance while maintaining exceptional robustness on out-of-domain medical images. By combining a foundation model-based feature encoder with a multi-scale pyramid registration head, FMIR provides a viable path toward generalizable medical imaging models with limited resources.
 
@@ -52,16 +52,16 @@ You can run the following commands to train or evaluate the FMIR model. For cros
 
 ```bash
 # Train on ACDC
-python train_registration_all257_1022.py -m regdino_mlp -d acdcreg -bs 1 --num_classes 4 --gpu_id 0 --epochs 301 start_channel=32 --img_size '(128,128,16)' --upscale '(2,2,1)'
+python train_registration_all.py -m regdino_mlp -d acdcreg -bs 1 --num_classes 4 --gpu_id 0 --epochs 301 start_channel=32 --img_size '(128,128,16)' --upscale '(2,2,1)'
 
 # Train on Abdomen CT 
-python train_registration_all257_1022.py -m regdino_mlp -d abdomenreg -bs 1 --num_classes 4 --gpu_id 0 --epochs 301 start_channel=32 --img_size '(192//2,160//2,256//2)' --upscale '(2,2,2)'
+python train_registration_all.py -m regdino_mlp -d abdomenreg -bs 1 --num_classes 4 --gpu_id 0 --epochs 301 start_channel=32 --img_size '(192//2,160//2,256//2)' --upscale '(2,2,2)'
 
 # Test on ACDC
 python test_cardiacreg_fbir.py -d acdcreg -m regdino_mlp --is_save 0 start_channel=32 --gpu_id 1
 
 # Test on Abdomen CT 
-python test_cardiacreg_fbir.py -d abdomenreg -m regdino_mlp --is_save 0 start_channel=32 --gpu_id 1
+python test_abdomenreg_fbir.py -d abdomenreg -m regdino_mlp --is_save 0 start_channel=32 --gpu_id 1
 ```
 
 ## ✨ Citation

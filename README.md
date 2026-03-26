@@ -25,8 +25,8 @@
 
 ## 🛠 Methodology
 
-![FMIR Architecture](figs/FMIR-0(1).pdf)
-Fig 1. The schema of FMIR: (a) Foundation Model-based Encoder and (b) Registration Head[cite: 87].*
+![FMIR Architecture](figs/FMIR.png)
+Fig 1. The schema of FMIR: (a) Foundation Model-based Encoder and (b) Registration Head.
 
 ### 1. Foundation Model-based Encoder
 This module decomposes 3D volumes into 2D slices to leverage frozen 2D foundation models for domain-invariant feature extraction[cite: 45, 47]. [cite_start]It includes a **Channel Regularization** strategy to reduce dimensionality and suppress 3D-specific biases[cite: 48, 51].

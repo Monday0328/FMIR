@@ -8,28 +8,28 @@
 [![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![arXiv 2601.17529](https://img.shields.io/badge/arXiv-2601.17529-b31b1b.svg)](https://arxiv.org/abs/2601.17529v2)
 
-[cite_start]This repository hosts the official PyTorch implementation of **"FMIR: A Foundation Model-based Image Registration Framework for Robust Image Registration"**[cite: 3].
+]This repository hosts the official PyTorch implementation of **"FMIR: A Foundation Model-based Image Registration Framework for Robust Image Registration"**.
 
-[cite_start]FMIR leverages 2D foundation models (e.g., DINOv3, SAM) pre-trained on large-scale natural images to achieve state-of-the-art (SOTA) in-domain performance while maintaining exceptional robustness on out-of-domain medical images[cite: 9, 25, 153]. [cite_start]By combining a foundation model-based feature encoder with a multi-scale pyramid registration head, FMIR provides a viable path toward generalizable medical imaging models with limited resources[cite: 31, 35, 154].
+FMIR leverages 2D foundation models (e.g., DINOv3, SAM) pre-trained on large-scale natural images to achieve state-of-the-art (SOTA) in-domain performance while maintaining exceptional robustness on out-of-domain medical images. By combining a foundation model-based feature encoder with a multi-scale pyramid registration head, FMIR provides a viable path toward generalizable medical imaging models with limited resources.
 
 ---
 
 ## ✨ Highlights
 
-* [cite_start]**Robust Generalization**: Maintains strong performance on out-of-domain images even when trained on a single dataset[cite: 9, 34].
-* [cite_start]**Plug-and-Play Backbone**: Compatible with various foundation encoders like DINO and SAM without structural changes[cite: 35, 146].
-* [cite_start]**Channel Regularization (CR)**: A novel strategy that suppresses dataset-specific biases, forcing the model to learn essential structural correlations[cite: 36, 61, 155].
-* [cite_start]**High Efficiency**: Achieves superior accuracy with significantly less inference time compared to other foundation-based frameworks like uniGradICON[cite: 27, 121, 122].
+**Robust Generalization**: Maintains strong performance on out-of-domain images even when trained on a single dataset.
+**Plug-and-Play Backbone**: Compatible with various foundation encoders like DINO and SAM without structural changes.
+**Channel Regularization (CR)**: A novel strategy that suppresses dataset-specific biases, forcing the model to learn essential structural correlations.
+**High Efficiency**: Achieves superior accuracy with significantly less inference time compared to other foundation-based frameworks like uniGradICON.
 
 ---
 
 ## 🛠 Methodology
 
-![FMIR Architecture](figs/FMIR.png)
+![FMIR Architecture](fig/FMIR.png)
 Fig 1. The schema of FMIR: (a) Foundation Model-based Encoder and (b) Registration Head.
 
 ### 1. Foundation Model-based Encoder
-This module decomposes 3D volumes into 2D slices to leverage frozen 2D foundation models for domain-invariant feature extraction[cite: 45, 47]. [cite_start]It includes a **Channel Regularization** strategy to reduce dimensionality and suppress 3D-specific biases[cite: 48, 51].
+This module decomposes 3D volumes into 2D slices to leverage frozen 2D foundation models for domain-invariant feature extraction. It includes a **Channel Regularization** strategy to reduce dimensionality and suppress 3D-specific biases.
 
 ### 2. Registration Head
 A multi-scale pyramid structure that estimates deformation fields from coarse to fine scales, effectively handling large displacements by progressively reconstructing the field.

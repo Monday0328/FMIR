@@ -553,38 +553,6 @@ def run(opt):
                     dsc_loss_4 = criterion_dsc(transformers[4](x_seg_ohs[4], pos_flows[4]), y_seg_ohs[4]) / 16
                     dsc_loss = (dsc_loss_0 + dsc_loss_1 + dsc_loss_2 + dsc_loss_3 + dsc_loss_4) * opt['dsc_w']
                 loss_dsc_all.update(dsc_loss.item(), y.numel())
-            # elif 'encoderOnlyBrainComplex' in opt['model']:
-            #     xs = get_downsampled_images(x, 4, mode='trilinear')
-            #     ys = get_downsampled_images(y, 4, mode='trilinear')
-
-            #     x_seg_ohs = get_downsampled_images(x_seg_oh, 4, mode='trilinear', n_cs=opt['num_classes'])
-            #     y_seg_ohs = get_downsampled_images(y_seg_oh, 4, mode='trilinear', n_cs=opt['num_classes'])
-
-            #     int_flows, pos_flows = model(x, y)
-
-            #     reg_loss_0 = criterion_reg(int_flows[0])
-            #     reg_loss_1 = criterion_reg(int_flows[1]) / 2
-            #     reg_loss_2 = criterion_reg(int_flows[2]) / 4
-            #     reg_loss_3 = criterion_reg(int_flows[3]) / 8
-            #     reg_loss = (reg_loss_0 + reg_loss_1 + reg_loss_2 + reg_loss_3) * opt['reg_w']
-            #     loss_reg_all.update(reg_loss.item(), y.numel())
-
-            #     sim_loss_0 = criterion_sim_0(model.transformers[0](xs[0], pos_flows[0]), ys[0])
-            #     sim_loss_1 = criterion_sim_1(model.transformers[1](xs[1], pos_flows[1]), ys[1]) / 2
-            #     sim_loss_2 = criterion_sim_2(model.transformers[2](xs[2], pos_flows[2]), ys[2]) / 4
-            #     sim_loss_3 = criterion_sim_2(model.transformers[3](xs[3], pos_flows[3]), ys[3]) / 8
-            #     sim_loss = (sim_loss_0 + sim_loss_1 + sim_loss_2 + sim_loss_3) * opt['sim_w']
-            #     loss_sim_all.update(sim_loss.item(), y.numel())
-
-            #     if opt['dsc_w'] == 0:
-            #         dsc_loss = reg_loss * 0
-            #     else:
-            #         dsc_loss_0 = criterion_dsc(model.transformers[0](x_seg_ohs[0], pos_flows[0]), y_seg_ohs[0])
-            #         dsc_loss_1 = criterion_dsc(model.transformers[1](x_seg_ohs[1], pos_flows[1]), y_seg_ohs[1]) / 2
-            #         dsc_loss_2 = criterion_dsc(model.transformers[2](x_seg_ohs[2], pos_flows[2]), y_seg_ohs[2]) / 4
-            #         dsc_loss_3 = criterion_dsc(model.transformers[3](x_seg_ohs[3], pos_flows[3]), y_seg_ohs[3]) / 8
-            #         dsc_loss = (dsc_loss_0 + dsc_loss_1 + dsc_loss_2 + dsc_loss_3) * opt['dsc_w']
-            #     loss_dsc_all.update(dsc_loss.item(), y.numel())
             else:
                 int_flows, pos_flows = model(x, y)
                 #print(int_flows.shape)

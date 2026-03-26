@@ -2,69 +2,70 @@
 **A Foundation Model-Based Framework for Robust Medical Image Registration**  
 *Accepted at ISBI 2026*
 
-This repository hosts the official PyTorch implementation of FMIR, a foundation model-based image registration framework presented in our paper: "FMIR: A Foundation Model-based Framework for Robust Medical Image Registration". FMIR leverages pre-trained 2D vision foundation models (e.g., DINOv3, SAM) as feature encoders to extract domain-invariant anatomical representations, combined with a general registration head and a novel channel regularization strategy. Trained on a single dataset, FMIR achieves state-of-the-art in-domain performance while maintaining strong generalization to out-of-domain images, offering a scalable and resource-efficient path toward building practical registration foundation models.
+# FMIR: A Foundation Model-Based Image Registration Framework
 
+[![Implemented in Pytorch](https://img.shields.io/badge/Implemented%20in-Pytorch-red.svg)](https://pytorch.org/)
+[![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![arXiv 2601.17529](https://img.shields.io/badge/arXiv-2601.17529-b31b1b.svg)](https://arxiv.org/abs/2601.17529v2)
 
-Highlights
-Foundation Model-based Encoder: Utilizes pre-trained 2D vision models (DINOv3, SAM) to extract robust, domain-invariant features via a slice-wise 3D adaptation pipeline.
+[cite_start]This repository hosts the official PyTorch implementation of **"FMIR: A Foundation Model-based Image Registration Framework for Robust Image Registration"**[cite: 3].
 
-General Registration Head: A multi-scale pyramid architecture that estimates deformation fields from extracted features, compatible with various foundation model backbones without retraining.
+[cite_start]FMIR leverages 2D foundation models (e.g., DINOv3, SAM) pre-trained on large-scale natural images to achieve state-of-the-art (SOTA) in-domain performance while maintaining exceptional robustness on out-of-domain medical images[cite: 9, 25, 153]. [cite_start]By combining a foundation model-based feature encoder with a multi-scale pyramid registration head, FMIR provides a viable path toward generalizable medical imaging models with limited resources[cite: 31, 35, 154].
 
-Channel Regularization: A novel training strategy that randomly selects feature subsets to prevent overfitting to dataset-specific priors, significantly enhancing cross-domain generalization.
+---
 
-State-of-the-Art Performance: Outperforms existing registration methods on ACDC and Abdomen CT datasets, with superior in-domain accuracy and out-of-domain robustness.
-[FMIR-0 (1).pdf](https://github.com/user-attachments/files/26258678/FMIR-0.1.pdf)
-[channel_visualization.pdf](https://github.com/user-attachments/files/26258680/channel_visualization.pdf)
+## ✨ Highlights
 
-Datasets
-We evaluate FMIR on two public benchmarks:
+* [cite_start]**Robust Generalization**: Maintains strong performance on out-of-domain images even when trained on a single dataset[cite: 9, 34].
+* [cite_start]**Plug-and-Play Backbone**: Compatible with various foundation encoders like DINO and SAM without structural changes[cite: 35, 146].
+* [cite_start]**Channel Regularization (CR)**: A novel strategy that suppresses dataset-specific biases, forcing the model to learn essential structural correlations[cite: 36, 61, 155].
+* [cite_start]**High Efficiency**: Achieves superior accuracy with significantly less inference time compared to other foundation-based frameworks like uniGradICON[cite: 27, 121, 122].
 
-ACDC (Cardiac MR): Intra-subject registration between end-diastole (ED) and end-systole (ES) phases.
+---
 
-Abdomen CT (Learn2Reg 2020): Inter-subject registration with 13 annotated organs.
+## 🛠 Methodology
 
-Usage
-Run the following commands in the ./src folder to reproduce the results:
+![FMIR Architecture](figs/FMIR-0(1).pdf)
+Fig 1. The schema of FMIR: (a) Foundation Model-based Encoder and (b) Registration Head[cite: 87].*
 
-bash
-# Train on ACDC (unsupervised)
-python train.py -d acdc -m FMIR --unsupervised --epochs 200
+### 1. Foundation Model-based Encoder
+This module decomposes 3D volumes into 2D slices to leverage frozen 2D foundation models for domain-invariant feature extraction[cite: 45, 47]. [cite_start]It includes a **Channel Regularization** strategy to reduce dimensionality and suppress 3D-specific biases[cite: 48, 51].
 
-# Train on Abdomen CT (weakly-supervised)
-python train.py -d abdomen -m FMIR --weakly --epochs 200
+### 2. Registration Head
+A multi-scale pyramid structure that estimates deformation fields from coarse to fine scales, effectively handling large displacements by progressively reconstructing the field.
 
-# Test on ACDC with DINO encoder
-python test.py -d acdc -m FMIR -e dino
+---
 
-# Test on Abdomen CT with SAM encoder (zero-shot)
-python test.py -d abdomen -m FMIR -e sam
--d: Dataset (acdc or abdomen)
+## 🚀 Usage
 
--m: Model name (FMIR)
+### Training and Testing
+You can run the following commands to train or evaluate the FMIR model. For cross-domain testing (Zero-shot), ensure the corresponding foundation encoder is specified. 
 
--e: Foundation model encoder (dino or sam)
+```bash
+# Train on ACDC
+python train_registration_all257_1022.py -m regdino_mlp -d acdcreg -bs 1 --num_classes 4 --gpu_id 0 --epochs 301 start_channel=32 --img_size '(128,128,16)' --upscale '(2,2,1)'
 
---unsupervised / --weakly: Training mode
+# Train on Abdomen CT 
+python train_registration_all257_1022.py -m regdino_mlp -d abdomenreg -bs 1 --num_classes 4 --gpu_id 0 --epochs 301 start_channel=32 --img_size '(192//2,160//2,256//2)' --upscale '(2,2,2)'
 
---epochs: Number of training epochs
+# Test on ACDC
+python test_cardiacreg_fbir.py -d acdcreg -m regdino_mlp --is_save 0 start_channel=32 --gpu_id 1
 
-Model Checkpoints
-Pre-trained FMIR models are available for download:
+# Test on Abdomen CT 
+python test_cardiacreg_fbir.py -d abdomenreg -m regdino_mlp --is_save 0 start_channel=32 --gpu_id 1
+```
 
-FMIR_ACDC_DINO.pth – Trained on ACDC with DINO encoder.
+## ✨ Citation
 
-FMIR_Abdomen_DINO.pth – Trained on Abdomen CT with DINO encoder.
-
-FMIR_Hybrid_DINO.pth – Trained on combined dataset.
-
-Citation
-If our work has influenced or contributed to your research, please kindly acknowledge it by citing:
-@article{chen2026fmir,
-  title={FMIR: A Foundation Model-based Framework for Robust Medical Image Registration},
-  author={Chen, Lin and He, Yue and Zhang, Fengting and Wang, Yaonan and Lin, Fengming and Chen, Xiang and Liu, Min},
-  journal={arXiv preprint arXiv:2601.19114},
+If you find this work useful for your research, please cite our paper:
+```
+@article{zhang2026fmir,
+  title={FMIR, A FOUNDATION MODEL-BASED IMAGE REGISTRATION FRAMEWORK FOR ROBUST IMAGE REGISTRATION},
+  author={Zhang, Fengting and He, Yue and Liu, Qinghao and Wang, Yaonan and Chen, Xiang and Zhang, Hang},
+  journal={arXiv preprint arXiv:2601.17529},
   year={2026}
 }
+```
 
-
-
+## 🛠 Acknowledgment
+We extend our sincere appreciation to [DINOv3](https://github.com/facebookresearch/dinov3?tab=readme-ov-file)) and [SAM](https://github.com/facebookresearch/segment-anything) for their important contributions. Portions of the code in this repository are adapted from these projects.

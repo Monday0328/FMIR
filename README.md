@@ -42,7 +42,7 @@ A multi-scale pyramid structure that estimates deformation fields from coarse to
 
 ## 🛠 Pretrained models
 
-Please download the pretrained weights for [DINOv3](https://github.com/facebookresearch/dinov3?tab=readme-ov-file) and [SAM](https://github.com/facebookresearch/segment-anything)  from their official repositories and place the downloaded files into the ./weights directory.
+Please download the pretrained weights for [DINOv3](https://github.com/facebookresearch/dinov3?tab=readme-ov-file) and [SAM](https://github.com/facebookresearch/segment-anything)  from their official repositories and place the downloaded files into the ./weight directory.
 
 
 ## 🚀 Usage
